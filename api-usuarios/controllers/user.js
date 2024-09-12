@@ -1,68 +1,49 @@
-const User = require('../models/user');
-const fs = require('fs');
-const csv = require('csv-parser');
+const userService = require('../services/userService');
 
 exports.createUser = async (req, res) => {
-    const { nome, email, idade } = req.body;
     try {
-        const novoUsuario = new User({ nome, email, idade });
-        await novoUsuario.save();
+        const novoUsuario = await userService.createUser(req.body);
         res.status(201).send(novoUsuario);
     } catch (error) {
-        res.status(400).send(error);
+        res.status(400).send(error.message);
     }
 };
 
 exports.getUsers = async (req, res) => {
     try {
-        const usuarios = await User.find();
+        const usuarios = await userService.getUsers();
         res.status(200).send(usuarios);
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send(error.message);
     }
 };
 
 exports.updateUser = async (req, res) => {
     const { id } = req.params;
-    const { nome, email, idade } = req.body;
     try {
-        const usuarioAtualizado = await User.findByIdAndUpdate(id, { nome, email, idade }, { new: true });
-        if (!usuarioAtualizado) {
-            return res.status(404).send('Usuário não encontrado');
-        }
+        const usuarioAtualizado = await userService.updateUser(id, req.body);
         res.status(200).send(usuarioAtualizado);
     } catch (error) {
-        res.status(400).send(error);
+        res.status(400).send(error.message);
     }
 };
 
-// Excluir um usuário
 exports.deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const usuarioRemovido = await User.findByIdAndDelete(id);
-        if (!usuarioRemovido) {
-            return res.status(404).send('Usuário não encontrado');
-        }
+        await userService.deleteUser(id);
         res.status(200).send('Usuário excluído com sucesso');
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send(error.message);
     }
 };
 
-exports.batchAddUsers = (req, res) => {
-    const usuarios = [];
-    fs.createReadStream('usuarios.csv')
-        .pipe(csv())
-        .on('data', (row) => {
-            usuarios.push(row);
-        })
-        .on('end', async () => {
-            try {
-                await User.insertMany(usuarios);
-                res.status(201).send('Usuários adicionados com sucesso');
-            } catch (error) {
-                res.status(500).send(error);
-            }
-        });
+exports.batchAddUsers = async (req, res) => {
+    const filePath = 'usuarios.csv'; // Caminho do arquivo CSV
+    try {
+        const mensagem = await userService.batchAddUsers(filePath);
+        res.status(201).send(mensagem);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
 };
