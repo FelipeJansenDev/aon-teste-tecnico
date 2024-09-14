@@ -3,6 +3,7 @@ const fs = require('fs');
 const csv = require('csv-parser');
 
 exports.createUser = async (data) => {
+    console.log(data);
     const { nome, email, idade } = data;
     const novoUsuario = new User({ nome, email, idade });
     return await novoUsuario.save();
