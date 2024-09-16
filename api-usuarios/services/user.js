@@ -13,6 +13,10 @@ exports.getUsers = async () => {
     return await User.find();
 };
 
+exports.getUserById = async (id) => {
+    return await User.findById(id);
+};
+
 exports.updateUser = async (id, data) => {
     const { nome, email, idade } = data;
     const usuarioAtualizado = await User.findByIdAndUpdate(id, { nome, email, idade }, { new: true });

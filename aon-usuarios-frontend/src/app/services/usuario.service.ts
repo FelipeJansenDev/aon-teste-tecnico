@@ -20,4 +20,12 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(`${environment.apiUrl}/usuarios`);
   }
 
+  delete(id: string): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/usuarios/${id}`);
+  }
+
+  getById(id: string): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/usuarios/${id}`);
+  }
+
 }
