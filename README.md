@@ -1,8 +1,7 @@
 
 # Aon teste técnico
 
-Uma breve descrição sobre o que esse projeto faz e para quem ele é
-
+Simples sistema para cadastro de usuários.
 
 ## Stack utilizada
 
@@ -13,16 +12,8 @@ Uma breve descrição sobre o que esse projeto faz e para quem ele é
 
 ## Rodando localmente
 
-**API:**
-
-Construa a imagem docker do backend. Acesse a pasta "/backend" e execute o comando abaixo, irá iniciar uma instância do MOngoDB e iniciar a API.
+Execute o comando docker-compose abaixo e acesse o link http://localhost
 
 ```bash
-  sudo docker build -t backend .
-```
-
-Execute um a imagem
-
-```bash
-  sudo docker-compose -f api.yml up
+sudo docker-compose up
 ```

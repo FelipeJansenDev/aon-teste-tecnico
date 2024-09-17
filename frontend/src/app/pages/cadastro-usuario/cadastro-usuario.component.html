@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+      <h4 class="d-flex justify-content-center">Criar um novo cadastro</h4>
+      <form [formGroup]="formUsuario" (ngSubmit)="onSubmit()">
+        <div class="card px-5 py-5">
+          <div class="form-data">
+            <div class="forms-inputs mb-4"> <span>Nome</span>
+              <input type="text" formControlName="nome" class="form-control" />
+            </div>
+            <div class="forms-inputs mb-4"> <span>E-mail</span>
+              <input type="text" formControlName="email" class="form-control"  />
+            </div>
+            <div class="forms-inputs mb-4"> <span>idade</span>
+              <input type="number" formControlName="idade" class="form-control"  />
+            </div>
+            <div class="mb-3">
+              <button [disabled]="formUsuario.invalid" class="btn btn-dark w-100">
+                Confirmar
+              </button>
+              <a [routerLink]="['/']" class="d-flex btn btn-link align-content-center justify-content-center">Voltar</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
