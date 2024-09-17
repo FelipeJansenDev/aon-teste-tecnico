@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const fs = require('fs');
 const csv = require('csv-parser');
-const multer = require('multer');
 
 exports.createUser = async (data) => {
     console.log(data);
