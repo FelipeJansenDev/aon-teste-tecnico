@@ -7,7 +7,7 @@ Simples sistema para cadastro de usuários.
 
 **Front-end:** Angular 18, Docker
 
-**Back-end:** Node, Express, MOngoDB,Docker
+**Back-end:** Node, Express, MongoDB,Docker
 
 
 ## Rodando localmente
