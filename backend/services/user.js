@@ -49,7 +49,7 @@ exports.processCSV = (filePath) => {
             })
             .on('end', async () => {
                 try {
-                    await User.insertMany(usuarios); // Adicionar todos os usuários
+                    await User.insertMany(usuarios);
                     resolve('Usuários adicionados com sucesso');
                 } catch (error) {
                     reject(error);

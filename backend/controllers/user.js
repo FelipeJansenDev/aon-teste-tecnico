@@ -59,7 +59,7 @@ exports.uploadUsersFromCSV = async (req, res) => {
 
     const filePath = req.file.path;
     try {
-        const mensagem = await userService.processCSV(filePath);
+        await userService.processCSV(filePath);
         res.status(201).send({ message: 'Usuários criados com sucesso' });
     } catch (error) {
         res.status(500).send({ message: error.message });

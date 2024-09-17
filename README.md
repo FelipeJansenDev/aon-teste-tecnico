@@ -17,3 +17,5 @@ Execute o comando docker-compose abaixo e acesse o link http://localhost
 ```bash
 sudo docker-compose up
 ```
+
+**Importando de arquivo CVS:** Existe um arquivo chamado usuarios.csv com alguns exemplos de usuários.
