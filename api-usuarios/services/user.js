@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const fs = require('fs');
 const csv = require('csv-parser');
+const multer = require('multer');
 
 exports.createUser = async (data) => {
     console.log(data);
@@ -34,17 +35,22 @@ exports.deleteUser = async (id) => {
     return usuarioRemovido;
 };
 
-exports.batchAddUsers = (filePath) => {
+exports.processCSV = (filePath) => {
+    console.log("Salvando a partir do csv")
     return new Promise((resolve, reject) => {
         const usuarios = [];
         fs.createReadStream(filePath)
             .pipe(csv())
             .on('data', (row) => {
-                usuarios.push(row);
+                usuarios.push({
+                    nome: row.nome,
+                    email: row.email,
+                    idade: parseInt(row.idade, 10),
+                });
             })
             .on('end', async () => {
                 try {
-                    await User.insertMany(usuarios);
+                    await User.insertMany(usuarios); // Adicionar todos os usuários
                     resolve('Usuários adicionados com sucesso');
                 } catch (error) {
                     reject(error);

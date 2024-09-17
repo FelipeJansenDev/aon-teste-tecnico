@@ -1,4 +1,5 @@
 const userService = require('../services/user');
+const fs = require('fs');
 
 exports.createUser = async (req, res) => {
     try {
@@ -51,12 +52,18 @@ exports.deleteUser = async (req, res) => {
     }
 };
 
-exports.batchAddUsers = async (req, res) => {
-    const filePath = 'usuarios.csv';
+exports.uploadUsersFromCSV = async (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('Nenhum arquivo enviado');
+    }
+
+    const filePath = req.file.path;
     try {
-        const mensagem = await userService.batchAddUsers(filePath);
-        res.status(201).json({ message: mensagem });
+        const mensagem = await userService.processCSV(filePath);
+        res.status(201).send({ message: 'Usuários criados com sucesso' });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ message: error.message });
+    } finally {
+        fs.unlinkSync(filePath);
     }
 };
