@@ -16,6 +16,11 @@ export class UsuarioService {
     return this.http.post<any>(`${environment.apiUrl}/usuarios`, usuario);
   }
 
+  update(usuario: any) {
+    console.log(usuario);
+    return this.http.put<any>(`${environment.apiUrl}/usuarios/${usuario.id}`, usuario);
+  }
+
   getAll(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${environment.apiUrl}/usuarios`);
   }
